@@ -1,0 +1,68 @@
+mutation CreateDemoData @transaction @auth(level: USER, insecureReason: "This operation is safe to expose to all logged in users.") {
+  user_insertMany(data: [
+    {
+      id: "550e8400-e29b-41d4-a716-446655440000",
+      username: "demouser1",
+      email: "demouser1@example.com",
+      createdAt: "2024-04-26T00:00:00Z"
+    },
+    {
+      id: "550e8400-e29b-41d4-a716-446655440001",
+      username: "demouser2",
+      email: "demouser2@example.com",
+      createdAt: "2024-04-26T00:00:00Z"
+    }
+  ])
+  category_insertMany(data: [
+    {
+      id: "650e8400-e29b-41d4-a716-446655440000",
+      userId: "550e8400-e29b-41d4-a716-446655440000",
+      name: "Category1",
+      createdAt: "2024-04-26T00:00:00Z"
+    },
+    {
+      id: "650e8400-e29b-41d4-a716-446655440001",
+      userId: "550e8400-e29b-41d4-a716-446655440001",
+      name: "Category2",
+      createdAt: "2024-04-26T00:00:00Z"
+    }
+  ])
+  declineMessage_insertMany(data: [
+    {
+      id: "750e8400-e29b-41d4-a716-446655440000",
+      userId: "550e8400-e29b-41d4-a716-446655440000",
+      categoryId: "650e8400-e29b-41d4-a716-446655440000",
+      title: "Decline Message 1",
+      content: "Example decline message from demouser1",
+      createdAt: "2024-04-26T00:00:00Z",
+      isFavorite: false
+    },
+    {
+      id: "750e8400-e29b-41d4-a716-446655440001",
+      userId: "550e8400-e29b-41d4-a716-446655440001",
+      categoryId: "650e8400-e29b-41d4-a716-446655440001",
+      title: "Decline Message 2",
+      content: "Example decline message from demouser2",
+      createdAt: "2024-04-26T00:00:00Z",
+      isFavorite: true
+    }
+  ])
+  sharedHistory_insertMany(data: [
+    {
+      id: "850e8400-e29b-41d4-a716-446655440000",
+      userId: "550e8400-e29b-41d4-a716-446655440000",
+      declineMessageId: "750e8400-e29b-41d4-a716-446655440000",
+      recipient: "recipient1@example.com",
+      sharedAt: "2024-04-26T00:00:00Z",
+      sharedVia: "email"
+    },
+    {
+      id: "850e8400-e29b-41d4-a716-446655440001",
+      userId: "550e8400-e29b-41d4-a716-446655440001",
+      declineMessageId: "750e8400-e29b-41d4-a716-446655440001",
+      recipient: "recipient2@example.com",
+      sharedAt: "2024-04-26T00:00:00Z",
+      sharedVia: "sms"
+    }
+  ])
+}

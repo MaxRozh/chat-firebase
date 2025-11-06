@@ -1,0 +1,25 @@
+mutation CreateUser($email: String!, $username: String!) @auth(level: USER) {
+  user_insert(data: { email: $email, username: $username, createdAt_expr: "request.time" })
+}
+
+query GetDeclineMessagesForCategory($categoryId: UUID!) @auth(level: USER) {
+  declineMessages(where: { categoryId: { eq: $categoryId }, userId: {eq_expr: "auth.uid"} }) {
+    id
+    title
+    content
+    isFavorite
+    createdAt
+  }
+}
+
+mutation UpdateDeclineMessage($id: UUID!, $title: String, $content: String, $isFavorite: Boolean) @auth(level: USER) {
+  declineMessage_update(key: { id: $id }, data: { title: $title, content: $content, isFavorite: $isFavorite })
+}
+
+query ListCategories @auth(level: USER) {
+  categories(where: {userId: {eq_expr: "auth.uid"}}) {
+    id
+    name
+    createdAt
+  }
+}
